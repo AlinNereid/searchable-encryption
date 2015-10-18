@@ -1,0 +1,24 @@
+Searchable symmetric key encryption.
+
+Let say we have a list of words L = (w_1, w_2, ... ,w_n).
+We want to encrypt them and to search in this list without revealing anything (the words or others information that may be used to extract information from the list).
+Let say we want to keep on a server the encrypted version of the list, and sometimes we want to search a word. If that word exists, we want to know its postion.
+
+A way to do that is to use searchable symmetric key encryption. In such a scheme, the user has 3 keys, named a,b,c.
+	The idea is to encrypt each word w_i and obtain C_i.
+		To encrypt w_i, we encrypt this word with the "a" key and we obtain E_a(w_i) = L_i||R_i. E is a deterministic algorithm.
+		Then we use a PRG(i,key_b) = S_i.
+		PRF_c(L_i) = k_i.
+		After, we calculate T_i = S_i || F_{k_i}(S_i).
+		And then C_i = E_a(w_i) XOR T_i
+
+	If we want to search for the word w_i, we will send to the server E_a(w_i) and K_i.
+	Server will XOR CT_i with E_a(w_i) and then it will get S_i || V*. if  F_{k_i} == V* then true, else false;
+
+We can easily search using boolean operators and phrases. We can also search using regular expressions, but we need to do a lot of queries.
+
+Difficulties:
+	Work is linear.
+	Handle variable length words:
+		Problems at padding (it cannot be random because the user needs to know the padding for the search). 
+		We can put before the word its length but w_i can't reveal the length to the server because it can do some statistical attacks. It can be searched in binnary way, but we don't want that because of the complexity.
