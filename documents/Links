@@ -1,0 +1,16 @@
+http://www.slideshare.net/hnx/slides-33732614 : Searching in privacy slides.
+	-Motivation
+	-Speak about SSKE
+https://crypto.stanford.edu/~eujin/papers/secureindex/2003nov-encsearch.pdf : How to search on encrypted data
+	-SSKE (Searchable symetric key encryption)
+	-SPKE (searchable public key encryption) using bilinear maps
+	-Secure Indexes for Searching Efficiently on Encrypted Compressed Data
+http://www.mytechblog.in/wp-content/uploads/2015/01/fuzzy-keyword-search-over-encrypted-data-in-cloud-computing-www.MyTechBlog.in-Ankit-Wasankar.pptx : fuzzy keyword search over encrypted data 
+http://www.cs.berkeley.edu/~dawnsong/papers/se.pdf : paper about Practical Techniques for Searches on Encrypted Data (first SSKE scheme)
+	-Proved that SSKE is a PRG (security related to that of PRF and PRG used in construction)
+http://outsourcedbits.org/category/encrypted-search-2/ : Seny Kamara's blog
+	-Introduction (Part 1)
+	-Deterministic Encryption (Part 2)
+	-Functional Encryption (Part 3)
+	-Oblivious RAMs (Part 4)
+	-Searchable Symmetric Encryption (Part 5)
