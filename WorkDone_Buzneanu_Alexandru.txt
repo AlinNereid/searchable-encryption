@@ -1,0 +1,3 @@
+﻿-requirements analysis review
+-Sequence diagram for the cases that directly imply the end user (use case: 1. sign up, 2. login, 3. store data, 4. search data)
+-Component diagram for the main components on persistance layer, service layer and UI layer
