@@ -1,0 +1,8 @@
+lab 2
+introduction into searchable encryption
+research regarding searchable encryption using fully homomorphic encryption
+
+lab 3
+requirements analysis for the admin actor
+class diagram for the Fully Homomorphic Encryption (FHE) component
+sequence diagram for document storage using the FHE component
