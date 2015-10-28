@@ -1,3 +1,8 @@
-﻿-requirements analysis review
+﻿
+Lab2
+Research team examples and their approach on searchable encryption.
+
+Lab3
+-requirements analysis review
 -Sequence diagram for the cases that directly imply the end user (use case: 1. sign up, 2. login, 3. store data, 4. search data)
 -Component diagram for the main components on persistance layer, service layer and UI layer
