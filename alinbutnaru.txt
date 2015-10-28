@@ -4,4 +4,4 @@ Lab2:
 Lab3:
 	establish the limits of application + potential clients (with George)
 	use case scenarios (1-4)
-	class diagram for SSKE and users/wordsDAO
+	class diagram and sequence diagram for SSKE and users/wordsDAO
