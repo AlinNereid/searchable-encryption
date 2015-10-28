@@ -1,0 +1,6 @@
+Lab2:
+	* Useful links
+	* State of the art
+Lab3:
+	* Requirement Analysis
+	* Component diagram (component1.png) and class diagram (class_ibe.png)
