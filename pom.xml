@@ -18,17 +18,24 @@
         <module>searchable-encryption-server</module>
         <module>searchable-encryption-client</module>
     </modules>
+    <properties>
+        <java.version>1.8</java.version>
+        <cassandra.provider>1.3.0.RELEASE</cassandra.provider>
+    </properties>
     
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-cassandra</artifactId>
+            <version>${cassandra.provider}</version>
+        </dependency>
     </dependencies>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+
 
 
     <build>
