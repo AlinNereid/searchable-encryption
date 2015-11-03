@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated sSKEEcore -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="alin.sske.sSKEEcore.presentation.SSKEEcoreModelWizardID"
+            name="%_UI_SSKEEcoreModelWizard_label"
+            class="alin.sske.sSKEEcore.presentation.SSKEEcoreModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SSKEEcoreModelFile.gif">
+         <description>%_UI_SSKEEcoreModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated sSKEEcore -->
+      <editor
+            id="alin.sske.sSKEEcore.presentation.SSKEEcoreEditorID"
+            name="%_UI_SSKEEcoreEditor_label"
+            icon="icons/full/obj16/SSKEEcoreModelFile.gif"
+            extensions="sskeecore"
+            class="alin.sske.sSKEEcore.presentation.SSKEEcoreEditor"
+            contributorClass="alin.sske.sSKEEcore.presentation.SSKEEcoreActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
