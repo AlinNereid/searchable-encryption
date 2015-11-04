@@ -5,3 +5,7 @@ Lab3:
 	establish the limits of application + potential clients (with George)
 	use case scenarios (1-4)
 	class diagram and sequence diagram for SSKE and class diagram users/wordsDAO
+Lab4:
+	Interator pattern on EncryptedWords.
+	Decorator pattern on SSKEKEYS.
+	Generate code with EMF.
