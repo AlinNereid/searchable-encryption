@@ -36,11 +36,11 @@ public class Document {
     }
 
     public static class Builder {
+
         private UUID documentId;
         private Long userId;
         private String data;
         private DateTime createdDate;
-
 
         public static Builder newBuilder() {
             return new Builder();
