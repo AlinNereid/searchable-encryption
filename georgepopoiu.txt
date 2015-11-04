@@ -9,3 +9,7 @@ Lab3:
 		- Actors
 		- System components
 	* Component diagram (component1.png) and class diagram for IBE-based searchable encryption (class_ibe.png)
+Lab4:
+	* Design patterns for the IBE searchable encryption module.
+	* Iterator design pattern for UserData class.
+	* AbstractFactory design pattern for encrypted databases.
