@@ -1,7 +1,8 @@
-package crypto.sske;
+package com.searchable_encryption.crypto.sske;
 
-import crypto.encryption.TextEncryptor;
-import crypto.model.EncryptedResult;
+import com.searchable_encryption.crypto.encryption.TextEncryptor;
+import com.searchable_encryption.crypto.model.EncryptedResult;
+
 import java.util.List;
 
 public class SSKETextEncryptor implements TextEncryptor {

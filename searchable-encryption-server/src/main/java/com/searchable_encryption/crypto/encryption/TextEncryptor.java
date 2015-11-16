@@ -1,6 +1,7 @@
-package crypto.encryption;
+package com.searchable_encryption.crypto.encryption;
 
-import crypto.model.EncryptedResult;
+import com.searchable_encryption.crypto.model.EncryptedResult;
+
 import java.util.List;
 
 public interface TextEncryptor {

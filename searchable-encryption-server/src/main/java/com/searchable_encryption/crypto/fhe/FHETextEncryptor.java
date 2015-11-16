@@ -1,7 +1,7 @@
-package crypto.fhe;
+package com.searchable_encryption.crypto.fhe;
 
-import crypto.encryption.TextEncryptor;
-import crypto.model.EncryptedResult;
+import com.searchable_encryption.crypto.encryption.TextEncryptor;
+import com.searchable_encryption.crypto.model.EncryptedResult;
 import java.util.List;
 
 public class FHETextEncryptor implements TextEncryptor {
