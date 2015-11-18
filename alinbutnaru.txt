@@ -9,3 +9,6 @@ Lab4:
 	Interator pattern on EncryptedWords.
 	Decorator pattern on SSKEKEYS.
 	Generate code with EMF.
+Lab5:
+	TDD for SSKE (AES, PRF, PRG and SSKE)
+	BPMN for search query.
