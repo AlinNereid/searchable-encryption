@@ -79,6 +79,14 @@
             <version>2.1.9</version>
         </dependency>
 
+        <!-- Postgres-->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901.jdbc4</version>
+        </dependency>
+
+
     </dependencies>
     <parent>
         <groupId>info.msi</groupId>
@@ -88,5 +96,41 @@
     <artifactId>searchable-encryption-server</artifactId>
     
     <packaging>jar</packaging>
+
+    <!--<profiles>
+        <profile>
+            <id>migrate-cassandra</id>
+            <activation>
+                <property>
+                    <name>migrate-cassandra</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <spring.profiles.active>migrationC</spring.profiles.active>
+            </properties>
+            <build>
+            <plugins>
+            <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>first-execution</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.searchable_encryption.config.CompleteConfig</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            </plugins>
+            </build>
+
+        </profile>
+    </profiles>-->
 
 </project>
