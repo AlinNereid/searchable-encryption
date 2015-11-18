@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * Created by Alexandru on 11/15/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { /*CassandraMigrationConfig.class,*/CassandraConfig.class
+@ContextConfiguration(classes = { CassandraConfig.class
         })
 public class CassandraConfigTest {
 
