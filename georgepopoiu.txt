@@ -13,3 +13,5 @@ Lab4:
 	* Design patterns for the IBE searchable encryption module.
 	* Iterator design pattern for UserData class.
 	* AbstractFactory design pattern for encrypted databases.
+Lab4:
+	* BPMN for search query.
