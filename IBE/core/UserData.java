@@ -1,7 +1,8 @@
+package core;
 import java.util.ArrayList;
 
 public class UserData implements Iterable {
-	ArrayList<Token> tokens;
+	ArrayList<Token> tokens = new ArrayList<Token>();
 
 	@Override
 	public Iterator createIterator() {
@@ -10,14 +11,13 @@ public class UserData implements Iterable {
 	}
 
 	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int count() {		
+		return tokens.size();
 	}
 
 	@Override
 	public int addElement(Object o) {
-		// TODO Auto-generated method stub
+		tokens.add((Token)o);
 		return 0;
 	}
 
