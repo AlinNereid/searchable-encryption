@@ -15,3 +15,6 @@ Lab4:
 	* AbstractFactory design pattern for encrypted databases.
 Lab4:
 	* BPMN for search query.
+	* Two iterations of TDD for IBE searchable encryption:
+		- IBE/Core/UserData class;
+		- IBE/Core/Token class.
