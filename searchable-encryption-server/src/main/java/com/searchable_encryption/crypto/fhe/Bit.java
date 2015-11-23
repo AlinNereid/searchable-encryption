@@ -17,11 +17,25 @@ public enum Bit {
     }
 
     public static Bit getBitFromBigInteger(BigInteger bitInteger) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        switch (bitInteger.intValue()) {
+            case 0:
+                return ZERO;
+            case 1:
+                return ONE;
+            default:
+                throw new IllegalArgumentException("A bit has a value of zero or one.");
+        }
     }
 
     public static Bit getBitFromCharacter(Character character) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        switch (character) {
+            case '0':
+                return ZERO;
+            case '1':
+                return ONE;
+            default:
+                throw new IllegalArgumentException("A bit has a value of zero or one.");
+        }
     }
 
     public static Bit and(Bit firstBit, Bit secondBit) {
