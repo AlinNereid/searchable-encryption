@@ -1,26 +1,45 @@
+package core;
 
-public class UserDataIterator extends Iterator {	
+import java.util.ArrayList;
+
+public class UserDataIterator implements Iterator {	
 	UserData userData;
+	ArrayList<Token> tokens;
+	int currentIndex;
 	
-	public UserDataIterator(UserData userData) {
-		// TODO Auto-generated constructor stub
+	public UserDataIterator(UserData userData, ArrayList<Token> tokens) {
+		this.userData = userData;
+		this.tokens = tokens;
+		currentIndex = 0;
 	}
 
 	@Override
-	public void first() {		
+	public void first() {
+		currentIndex = 0;
 	}
 
 	@Override
 	public void next() {
+		if(!isDone()) {
+			++currentIndex;;
+		}
 	}
 
 	@Override
-	public void isDone() {
+	public boolean isDone() {
+		if(currentIndex >= userData.count()) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public Object currentItem() {
-		return null;
+		if(isDone()) {
+			return null;
+		}
+		
+		return tokens.get(currentIndex);
 	}
 
 }

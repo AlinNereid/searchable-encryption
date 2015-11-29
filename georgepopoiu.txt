@@ -13,8 +13,14 @@ Lab4:
 	* Design patterns for the IBE searchable encryption module.
 	* Iterator design pattern for UserData class.
 	* AbstractFactory design pattern for encrypted databases.
-Lab4:
+Lab5:
 	* BPMN for search query.
 	* Two iterations of TDD for IBE searchable encryption:
 		- IBE/Core/UserData class;
 		- IBE/Core/Token class.
+Lab6:
+	* Full implementation for some classes used in IBE encryption:
+		- IBE/core/UserData.java
+		- IBE/core/UserDayaIterator.java
+		- IBE/core/Token.java
+	* Aspect IBE/aspects/TokenDataAspect.aj to monitor how many bytes are set in all the Token objects across the application.

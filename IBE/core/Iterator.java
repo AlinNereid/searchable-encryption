@@ -1,12 +1,13 @@
+package core;
 
-public abstract class Iterator {
+public interface Iterator {
 
-	public abstract void first();
+	void first();
 	
-	public abstract void next();
+	void next();
 	
-	public abstract void isDone();
+	boolean isDone();
 	
-	public abstract Object currentItem();
+	Object currentItem();
 	
 }
