@@ -7,5 +7,70 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>searchable-encryption-client</artifactId>
-    <packaging>pom</packaging>
+    <name>sencrypt-client</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <org.apache.tiles-version>3.0.5</org.apache.tiles-version>
+        <thymeleaf.extras.version>2.1.1.RELEASE</thymeleaf.extras.version>
+        <!-- The main class to start by executing java -jar -->
+        <start-class>com.searchable_encryption.app.ApplicationClient</start-class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Apache tiles -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+            <version>${org.apache.tiles-version}</version>
+        </dependency>
+
+
+        <!--  <dependency>
+              <groupId>org.apache.tiles</groupId>
+              <artifactId>tiles-template</artifactId>
+              <version>${org.apache.tiles-version}</version>
+          </dependency>
+          <dependency>
+              <groupId>org.apache.tiles</groupId>
+              <artifactId>tiles-servlet</artifactId>
+              <version>${org.apache.tiles-version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>org.apache.tiles</groupId>
+              <artifactId>tiles-core</artifactId>
+              <version>${org.apache.tiles-version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>org.apache.tiles</groupId>
+              <artifactId>tiles-api</artifactId>
+              <version>${org.apache.tiles-version}</version>
+          </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

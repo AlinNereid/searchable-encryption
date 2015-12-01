@@ -24,6 +24,14 @@
     </properties>
     
     <dependencies>
+        <!--<dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectj-tools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
