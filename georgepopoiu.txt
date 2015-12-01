@@ -1,7 +1,7 @@
-Lab2:
+Lab 2:
 	* Useful links
 	* State of the art
-Lab3:
+Lab 3:
 	* Requirement Analysis (with Butnaru Alin Silviu)
 		- Application limits
 		- Potential clients
@@ -9,18 +9,20 @@ Lab3:
 		- Actors
 		- System components
 	* Component diagram (component1.png) and class diagram for IBE-based searchable encryption (class_ibe.png)
-Lab4:
+Lab 4:
 	* Design patterns for the IBE searchable encryption module.
 	* Iterator design pattern for UserData class.
 	* AbstractFactory design pattern for encrypted databases.
-Lab5:
+Lab 5:
 	* BPMN for search query.
 	* Two iterations of TDD for IBE searchable encryption:
 		- IBE/Core/UserData class;
 		- IBE/Core/Token class.
-Lab6:
-	* Full implementation for some classes used in IBE encryption:
+Lab 6-7:
+	* Aspect IBE/aspects/TokenDataAspect.aj to monitor how many bytes are set in all the Token objects across the application.
+	* Full implementation for some utility classes in the IBE/core package:
 		- IBE/core/UserData.java
 		- IBE/core/UserDayaIterator.java
 		- IBE/core/Token.java
-	* Aspect IBE/aspects/TokenDataAspect.aj to monitor how many bytes are set in all the Token objects across the application.
+	* AuthenticatedEncryption class implementation in the crypto package for usage in the IBE SE.
+	
