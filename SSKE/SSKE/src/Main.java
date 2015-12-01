@@ -2,77 +2,94 @@
 
 import alin.sske.sSKEEcore.*;
 import alin.sske.sSKEEcore.impl.*;
+
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-    public static void main(String strings[]) throws InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, ShortBufferException, BadPaddingException, IllegalBlockSizeException {
+    public static void main(String strings[]) throws Exception {
 
-        SSKEEcoreFactoryImpl.init();
-        SSKEEcoreFactoryImpl factory = new SSKEEcoreFactoryImpl();
-        AES aes = factory.createAES();
+        SSKE sske;
 
-        //aes.encrypt("dsadsa", "123");
-        SSKE sske = factory.createSSKE();
+        SSKEEcoreFactoryImpl factory;
+        
+    	SSKEEcoreFactoryImpl.init();
+        factory = new SSKEEcoreFactoryImpl();
+        sske = factory.createSSKE();
+        SSKEEncryptor sskeEncryptor = factory.createSSKEEncryptor();
+        sskeEncryptor.setSymmetricencryptor(new AESImpl());
+        sskeEncryptor.setPseudorandomfunction(new PRFImpl());
+        sskeEncryptor.setPseudorandomgenerator(new PRGImpl());
+
+        SSKEDecryptor sskeDecryptor = factory.createSSKEDecryptor();
+        sskeDecryptor.setSymmetricdecryptor(new AESImpl());
+        sskeDecryptor.setPseudorandomfunction(new PRFImpl());
+        sskeDecryptor.setPseudorandomgenerator(new PRGImpl());
+
+        sske.setSskedecryptor(sskeDecryptor);
+        sske.setSskeencryptor(sskeEncryptor);
+        
         SSKEKeys sskeKeys = factory.createSSKEKeys();
-        SSKEKeysGenerator sskeGenerator = factory.createSSKEKeysGenerator();
-        //sskeGenerator.generateKeys();
-
-        SSKKeysTxt keysTxt = new SSKKeysTxtImpl(sskeKeys);
-        SSKKeysJson keysJson = new SSKKeysJsonImpl(sskeKeys);
-
-        String key = "anaaremere123456"; // 128 bit key
-        String initVector = "1234567890123456"; // 16 bytes IV
+        sskeKeys.setKeyA("keyakeyakeyakeyd");
+        sskeKeys.setKeyB("keybkeybkeybkeyb");
+        sskeKeys.setKeyC("keyckeyckeyckeyc");
+        sske.setSskekeys(sskeKeys);
 
 
-
-        System.out.println(sskeKeys.toString());
-
-        System.out.println(decrypt(key, initVector,
-                encrypt(key, initVector, "Hello World")));
-    }
-    public static String encrypt(String key, String initVector, String value) {
-        try {
-            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
-
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-
-            byte[] encrypted = cipher.doFinal(value.getBytes());
-            System.out.println("encrypted string: "
-                    + Base64.encodeBase64String(encrypted));
-
-            return Base64.encodeBase64String(encrypted);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+//        String encryptWord = sske.encryptWord("wordword12",0);
+//        encryptWord = sske.encryptWord("wordword12",0);
+//        encryptWord = sske.encryptWord("wordword14",0);
+//        encryptWord = sske.encryptWord("wordword14",0);
+//        encryptWord = sske.encryptWord("wordword12",0);
+//        
+//        String word = sske.decryptWord(encryptWord,0);
+//
+//        encryptWord = sske.encryptWord("wordword14",2);
+//        
+//        word = sske.decryptWord(encryptWord,2);
+        
+        
+        List<String> text = new ArrayList<String>();
+//        text.add("Ana");
+//        text.add("are");
+//        text.add("multe");
+//        text.add("mere");
+//        text.add("verzi");
+//        text.add("si");
+	      for(int i=0;i<100001;i++){
+	    	  text.add("Text" + i); 
+	      }
+        List<String> encryptedText = new ArrayList<String>();
+        
+        for(int i=0;i<text.size();i++){
+        	String enWord = sske.encryptWord(text.get(i), i);
+        	encryptedText.add(enWord);
         }
-
-        return null;
-    }
-
-    public static String decrypt(String key, String initVector, String encrypted) {
-        try {
-            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
-
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-
-            byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
-
-            return new String(original);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
+//        
+//        List<String> decryptedText = new ArrayList<String>();
+//        
+//        for(int i=0;i<encryptedText.size();i++){
+//        	String enWord = sske.decryptWord(encryptedText.get(i), i);
+//        	decryptedText.add(enWord);
+//        }
+//        
+//        for (int i = 0; i < decryptedText.size(); i++) {
+//			System.out.println(decryptedText.get(i));
+//		}
+        
+        TokenSSKE token =  sske.generateToken("Text100001");
+        System.out.println(sske.isWordIn(encryptedText,token));
     }
 }

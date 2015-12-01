@@ -47,8 +47,8 @@ public class SSKEImplTest {
         sske.setSskekeys(sskeKeys);
 
 
-        String encryptWord = sske.encryptWord("wordword");
-        String word = sske.decryptWord(encryptWord);
+        String encryptWord = sske.encryptWord("wordword",0);
+        String word = sske.decryptWord(encryptWord,0);
 
         assertEquals(word, "wordword");
     }
@@ -61,11 +61,11 @@ public class SSKEImplTest {
         sske.setSskekeys(sskeKeys);
 
 
-        String encryptWord = sske.encryptWord("wordword");
+        String encryptWord = sske.encryptWord("wordword",0);
 
         sskeKeys.setKeyA("keybkeybkeybkeyd");
 
-        String word = sske.decryptWord(encryptWord);
+        String word = sske.decryptWord(encryptWord,0);
 
         assertNotEquals(word, "wordword");
 

@@ -6,9 +6,7 @@ import alin.sske.sSKEEcore.SSKEEcorePackage;
 import alin.sske.sSKEEcore.SSKEKeys;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -257,7 +255,7 @@ public class SSKEKeysImpl extends MinimalEObjectImpl.Container implements SSKEKe
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuffer result = new StringBuffer();
 		result.append(" (keyA: ");
 		result.append(keyA);
 		result.append(", keyB: ");
@@ -268,4 +266,8 @@ public class SSKEKeysImpl extends MinimalEObjectImpl.Container implements SSKEKe
 		return result.toString();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return this.toString().equals(obj.toString());
+	}
 } //SSKEKeysImpl

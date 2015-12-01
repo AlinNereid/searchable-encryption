@@ -176,7 +176,7 @@ public class AESImpl extends MinimalEObjectImpl.Container implements AES {
 		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 		cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, iv);
 
-		byte[] encryptedData = cipher.doFinal(data.getBytes());
+		byte[] encryptedData = cipher.doFinal(data.getBytes("ISO-8859-1"));
 
 		return Base64.encodeBase64String(encryptedData);
 	}

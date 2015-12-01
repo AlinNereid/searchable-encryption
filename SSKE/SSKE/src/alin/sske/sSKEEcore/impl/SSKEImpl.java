@@ -10,21 +10,21 @@ import alin.sske.sSKEEcore.SSKEKeys;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * <!-- begin-user-doc -->
@@ -92,29 +92,34 @@ public class SSKEImpl extends MinimalEObjectImpl.Container implements SSKE {
 	}
 
 	@Override
-	public String encryptWord(String word) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+	public String encryptWord(String word, int position) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
 		String EW = sskeencryptor.getSymmetricencryptor().encrypt(word, sskekeys.getKeyA());
 		int length = EW.length();
 		String l = EW.substring(0,length/2);
 		String r = EW.substring(length/2);
 
-		String si = sskeencryptor.getPseudorandomgenerator().generateKey(0,sskekeys.getKeyB());
+		String si = sskeencryptor.getPseudorandomgenerator().generateKey(position,sskekeys.getKeyB());
 		String ki = sskeencryptor.getPseudorandomfunction().generateRandomPiece(sskekeys.getKeyC(),l);
 		byte b[] = new byte[sskekeys.getKeyA().length()];
 		for(int i=0; i<b.length;i++){
 			b[i] = ki.getBytes()[i];
 		}
 		ki = new String(b,"ISO-8859-1");
-		String s2 = sskeencryptor.getSymmetricencryptor().encrypt(si,ki);
-		byte b3[] = new byte[r.getBytes().length];
-		for(int i=0;i<r.getBytes().length;i++){
-			b3[i] = s2.getBytes()[i];
-		}
-
+		
+		
 		byte b2[] = new byte[l.getBytes().length];
 		for(int i=0;i<l.getBytes().length;i++){
 			b2[i] = si.getBytes()[i];
 		}
+		//aici
+		String siString = new String(b2,"ISO-8859-1");
+		String s2 = sskeencryptor.getSymmetricencryptor().encrypt(siString,ki);
+		
+		byte b3[] = new byte[r.getBytes().length];
+		for(int i=0;i<r.getBytes().length;i++){
+			b3[i] = s2.getBytes()[i];
+		}
+		
 		String Ti = new String(b2) + new String(b3);
 
         byte rez[] = new byte[Ti.getBytes().length];
@@ -134,13 +139,19 @@ public class SSKEImpl extends MinimalEObjectImpl.Container implements SSKE {
 	}
 
     @Override
-    public String decryptWord(String encryptedWord) throws Exception {
-        String si = sskedecryptor.getPseudorandomgenerator().generateKey(0,sskekeys.getKeyB());
+    public String decryptWord(String encryptedWord, int position) throws Exception {
+        String si = sskedecryptor.getPseudorandomgenerator().generateKey(position,sskekeys.getKeyB());
+        
         byte [] encryptedWordBytes = encryptedWord.getBytes("ISO-8859-1");
         byte left[] = new byte[encryptedWordBytes.length/2];
         for(int i=0;i<left.length;i++){
             left[i] = encryptedWordBytes[i];
         }
+        byte b2[] = new byte[left.length];
+		for(int i=0;i<left.length;i++){
+			b2[i] = si.getBytes()[i];
+		}
+		
         byte right[] = new byte[encryptedWordBytes.length/2];
         for(int i=0;i<right.length;i++){
             right[i] = encryptedWordBytes[i+encryptedWordBytes.length/2];
@@ -161,7 +172,8 @@ public class SSKEImpl extends MinimalEObjectImpl.Container implements SSKE {
             b[i] = ki.getBytes()[i];
         }
         ki = new String(b,"ISO-8859-1");
-        String s2 = sskeencryptor.getSymmetricencryptor().encrypt(si,ki);
+        String siString = new String(b2,"ISO-8859-1");
+        String s2 = sskeencryptor.getSymmetricencryptor().encrypt(siString, ki);
 
         byte [] ri = new byte[left.length];
         for(int i=0;i<right.length;i++){
@@ -398,4 +410,62 @@ public class SSKEImpl extends MinimalEObjectImpl.Container implements SSKE {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public TokenSSKE generateToken(String word) throws Exception {
+		String EW = sskeencryptor.getSymmetricencryptor().encrypt(word, sskekeys.getKeyA());
+		TokenSSKE tokenSSKE = new TokenSSKE();
+		tokenSSKE.setEWi(EW);
+		int length = EW.length();
+		String l = EW.substring(0,length/2);
+		String ki = sskeencryptor.getPseudorandomfunction().generateRandomPiece(sskekeys.getKeyC(),l);
+		byte b[] = new byte[sskekeys.getKeyA().length()];
+		for(int i=0; i<b.length;i++){
+			b[i] = ki.getBytes()[i];
+		}
+		ki = new String(b,"ISO-8859-1");
+		tokenSSKE.setKi(ki);
+		return tokenSSKE;
+	}
+
+	public boolean isWord(String enWord, TokenSSKE token) throws InvalidKeyException, UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, BadPaddingException, IllegalBlockSizeException
+	{
+		
+		
+		byte rez[] = new byte[enWord.getBytes().length];
+
+		if(token.getEWi().getBytes().length != enWord.getBytes().length)
+			return false;
+        
+        for(int i=0;i<rez.length;i++)
+        {
+            rez[i] = (byte) (enWord.getBytes("ISO-8859-1")[i]^token.getEWi().getBytes("ISO-8859-1")[i]);
+        }
+        
+        byte si[] = new byte[enWord.getBytes().length/2];
+        for(int i=0;i<si.length;i++){
+        	si[i] = rez[i];
+        }
+        String siString = new String(si,"ISO-8859-1");
+        String s2 = sskeencryptor.getSymmetricencryptor().encrypt(siString,token.getKi());
+		byte b3[] = new byte[s2.getBytes().length];
+		for(int i=0;i<s2.getBytes().length;i++){
+			b3[i] = s2.getBytes()[i];
+		}
+		for(int i=enWord.getBytes().length/2;i<enWord.getBytes().length;i++){
+			if(rez[i]!=b3[i-enWord.getBytes().length/2]){
+				return false;
+			}
+		}
+		return true;
+	}
+	@Override
+	public boolean isWordIn(List<String> encryptedText, TokenSSKE token)
+			throws Exception {
+		for (String enWord : encryptedText) {
+			if(isWord(enWord, token)){
+				return true;
+			}
+		}
+		return false;
+	}
 } //SSKEImpl

@@ -4,13 +4,17 @@ package alin.sske.sSKEEcore;
 
 import org.eclipse.emf.ecore.EObject;
 
+import alin.sske.sSKEEcore.impl.TokenSSKE;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,8 +49,10 @@ public interface SSKE extends EObject {
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	String encryptWord(String word) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException;
-	String decryptWord(String encryptedWord) throws Exception;
+	String encryptWord(String word, int position) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException;
+	String decryptWord(String encryptedWord, int position) throws Exception;
+	TokenSSKE generateToken(String word) throws Exception;
+	boolean isWordIn(List<String> encryptedText,TokenSSKE token)throws Exception;
 	SSKEKeys getSskekeys();
 
 	/**
