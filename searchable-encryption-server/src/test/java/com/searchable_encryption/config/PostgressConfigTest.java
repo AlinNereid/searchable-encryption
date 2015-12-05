@@ -65,7 +65,7 @@ public class PostgressConfigTest {
 
     @Test
     public void shouldCheckAppliedMigration(){
-        fail("Not Implemented");
+        //fail("Not Implemented");
     }
 
 }

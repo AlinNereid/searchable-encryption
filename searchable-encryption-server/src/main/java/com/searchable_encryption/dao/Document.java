@@ -1,27 +1,29 @@
 package com.searchable_encryption.dao;
 
 import org.exolab.castor.types.DateTime;
+import org.springframework.data.cassandra.mapping.PrimaryKey;
+import org.springframework.data.cassandra.mapping.Table;
 
 import java.util.UUID;
 
 /**
  * Created by Alexandru on 11/2/2015.
  */
-//@Table("documents")
+@Table("documents")
 public class Document {
 
-   //@PrimaryKey
-    private UUID documentId;
+   @PrimaryKey
+    private Long documentId;
 
-    private Long userId;
+    private UUID userId;
     private String data;
     private DateTime createdDate;
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public UUID getDocumentId() {
+    public Long getDocumentId() {
         return documentId;
     }
 
@@ -35,8 +37,8 @@ public class Document {
 
     public static class Builder {
 
-        private UUID documentId;
-        private Long userId;
+        private Long documentId;
+        private UUID userId;
         private String data;
         private DateTime createdDate;
 
@@ -44,12 +46,12 @@ public class Document {
             return new Builder();
         }
 
-        public Builder withUserId(Long userId) {
+        public Builder withUserId(UUID userId) {
             this.userId = userId;
             return this;
         }
 
-        public Builder withDocumentId(UUID documentId) {
+        public Builder withDocumentId(Long documentId) {
             this.documentId = documentId;
             return this;
         }
