@@ -14,7 +14,7 @@
         <org.apache.tiles-version>3.0.5</org.apache.tiles-version>
         <thymeleaf.extras.version>2.1.1.RELEASE</thymeleaf.extras.version>
         <!-- The main class to start by executing java -jar -->
-        <start-class>com.searchable_encryption.app.ApplicationClient</start-class>
+        <start-class>com.searchable_encryption.ApplicationClient</start-class>
     </properties>
 
     <dependencies>
@@ -22,46 +22,25 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- Apache tiles -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.tiles</groupId>
-            <artifactId>tiles-jsp</artifactId>
-            <version>${org.apache.tiles-version}</version>
-        </dependency>
-
-
-        <!--  <dependency>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-template</artifactId>
-              <version>${org.apache.tiles-version}</version>
-          </dependency>
-          <dependency>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-servlet</artifactId>
-              <version>${org.apache.tiles-version}</version>
-          </dependency>
-
-          <dependency>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-core</artifactId>
-              <version>${org.apache.tiles-version}</version>
-          </dependency>
-
-          <dependency>
-              <groupId>org.apache.tiles</groupId>
-              <artifactId>tiles-api</artifactId>
-              <version>${org.apache.tiles-version}</version>
-          </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity3</artifactId>
+            <version>2.1.2.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 

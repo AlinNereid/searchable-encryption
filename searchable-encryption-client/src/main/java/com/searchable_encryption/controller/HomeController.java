@@ -17,6 +17,6 @@ public class HomeController {
     @RequestMapping(value = {"","/","/home"})
     public String index(){
         log.debug("Mapped to index");
-        return "home";
+        return "index";
     }
 }
