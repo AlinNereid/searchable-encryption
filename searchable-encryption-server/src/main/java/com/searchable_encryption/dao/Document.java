@@ -1,6 +1,6 @@
 package com.searchable_encryption.dao;
 
-import org.exolab.castor.types.DateTime;
+import org.joda.time.DateTime;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -18,6 +18,7 @@ public class Document {
     private UUID userId;
     private String data;
     private DateTime createdDate;
+    private EncryptionType encryptionType;
 
     public UUID getUserId() {
         return userId;
@@ -35,12 +36,40 @@ public class Document {
         return createdDate;
     }
 
+    public EncryptionType getEncryptionType() {
+        return encryptionType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Document document = (Document) o;
+
+        if (!documentId.equals(document.documentId)) return false;
+        if (!userId.equals(document.userId)) return false;
+        if (!data.equals(document.data)) return false;
+        return encryptionType == document.encryptionType;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = documentId.hashCode();
+        result = 31 * result + userId.hashCode();
+        result = 31 * result + data.hashCode();
+        result = 31 * result + encryptionType.hashCode();
+        return result;
+    }
+
     public static class Builder {
 
         private Long documentId;
         private UUID userId;
         private String data;
         private DateTime createdDate;
+        private EncryptionType encryptionType;
 
         public static Builder newBuilder() {
             return new Builder();
@@ -66,12 +95,18 @@ public class Document {
             return this;
         }
 
+        public Builder withEncryptionType(EncryptionType encryptionType) {
+            this.encryptionType = encryptionType;
+            return this;
+        }
+
         public Document build() {
             Document document = new Document();
             document.documentId = documentId;
             document.userId = userId;
             document.data = data;
             document.createdDate = createdDate;
+            document.encryptionType = encryptionType;
             return document;
         }
     }
