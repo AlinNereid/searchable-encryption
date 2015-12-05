@@ -1,4 +1,4 @@
-package com.searchable_encryption.app;
+package com.searchable_encryption;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
