@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.msi</groupId>
+        <artifactId>searchable-encryption</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>searchable-encryption-server</artifactId>
+    
+    <packaging>jar</packaging>
+
     <dependencies>
         <!-- junit -->
         <dependency>
@@ -53,6 +63,13 @@
             <artifactId>spring-data-cassandra</artifactId>
             <version>${cassandra.provider}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.cassandraunit</groupId>
+            <artifactId>cassandra-unit</artifactId>
+            <version>2.1.9.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons-core</artifactId>
@@ -85,17 +102,43 @@
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.1.6.RELEASE</version>
+        </dependency>
+
+        <!-- Aspect-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>1.8.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.0.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.1.6.RELEASE</version>
+        </dependency>
 
 
     </dependencies>
-    <parent>
-        <groupId>info.msi</groupId>
-        <artifactId>searchable-encryption</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>searchable-encryption-server</artifactId>
-    
-    <packaging>jar</packaging>
 
     <!--<profiles>
         <profile>

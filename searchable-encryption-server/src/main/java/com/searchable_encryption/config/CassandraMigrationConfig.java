@@ -35,12 +35,12 @@ public class CassandraMigrationConfig {
     private String contactPoints;
 
     @Autowired
+    @Qualifier(value = "port")
     private Integer cassandraPort;
 
     @PostConstruct
     public void init() throws InterruptedException {
         LOGGER.info("Starting migration...");
-        Thread.sleep(5000);
         initMigrate().migrate();
         LOGGER.info("Migration ended");
     }
