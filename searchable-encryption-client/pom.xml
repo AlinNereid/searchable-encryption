@@ -7,5 +7,49 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>searchable-encryption-client</artifactId>
-    <packaging>pom</packaging>
+    <name>sencrypt-client</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <org.apache.tiles-version>3.0.5</org.apache.tiles-version>
+        <thymeleaf.extras.version>2.1.1.RELEASE</thymeleaf.extras.version>
+        <!-- The main class to start by executing java -jar -->
+        <start-class>com.searchable_encryption.ApplicationClient</start-class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity3</artifactId>
+            <version>2.1.2.RELEASE</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
