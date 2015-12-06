@@ -2,7 +2,6 @@ package com.searchable_encryption.config;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

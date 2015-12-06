@@ -1,15 +1,12 @@
 package com.searchable_encryption.config;
 
 import com.contrastsecurity.cassandra.migration.CassandraMigration;
-import com.contrastsecurity.cassandra.migration.config.Cluster;
 import com.contrastsecurity.cassandra.migration.config.Keyspace;
-import com.datastax.driver.core.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import javax.annotation.PostConstruct;
 
