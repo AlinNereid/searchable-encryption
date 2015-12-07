@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+<div class="container" th:fragment="content">
+    <div sec:authorize="isAnonymous()" class="container text-center" style="max-width:400px;">
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form class="form-signin" th:action="@{/login}" method="post">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus=""/>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required=""/>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        Authenticated with success
+    </div>
+</div>
+<!-- /.row -->
+</html>

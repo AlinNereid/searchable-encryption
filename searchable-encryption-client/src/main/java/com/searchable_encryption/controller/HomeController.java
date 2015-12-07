@@ -5,6 +5,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 /**
  * Created by Alexandru on 12/1/2015.
  */
@@ -15,8 +17,32 @@ public class HomeController {
     private Log log = LogFactory.getLog(this.getClass());
 
     @RequestMapping(value = {"","/","/home"})
-    public String index(){
+    public String index(Principal principal){
         log.debug("Mapped to index");
-        return "index";
+        if(principal != null){
+            return "index";
+        }
+        return "login";
+    }
+
+    @RequestMapping(value = {"/login"})
+    public String defaultPage(){
+        log.debug("Mapped to index");
+        return "login";
+    }
+
+    @RequestMapping(value = {"/about"})
+    public String aboutPage(){
+        return "about";
+    }
+
+    @RequestMapping(value = {"/store"})
+    public String storeTextPage(){
+        return "storeText";
+    }
+
+    @RequestMapping(value = {"/search"})
+    public String searchPage(){
+        return "search";
     }
 }

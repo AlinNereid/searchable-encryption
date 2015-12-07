@@ -1,7 +1,9 @@
 package com.searchable_encryption.mvc;
 
+import com.searchable_encryption.controller.ThymeleafLayoutInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
@@ -24,5 +26,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.addDialect(new SpringSecurityDialect());
         return springTemplateEngine;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new ThymeleafLayoutInterceptor());
     }
 }
