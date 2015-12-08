@@ -7,6 +7,7 @@ import com.searchable_encryption.repository.CassandraRepository;
 import org.cassandraunit.CQLDataLoader;
 import org.cassandraunit.dataset.cql.ClassPathCQLDataSet;
 import org.joda.time.DateTime;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +39,11 @@ public class CassandraRepositoryTest {
         session.execute(QueryBuilder.truncate("sencrypt", "documents"));
         CQLDataLoader cqlDataLoader = new CQLDataLoader(session);
         cqlDataLoader.load(new ClassPathCQLDataSet("cassandra/batch-test.cql"));
+    }
+
+    @After
+    public void after(){
+        session.execute(QueryBuilder.truncate("sencrypt", "documents"));
     }
 
     @Test

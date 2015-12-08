@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 <div class="container" th:fragment="content">
-<p>Test</p>
+<p th:text="${confirmation}" th:unless="${confirmation==null}"></p>
 </div>
 </html>

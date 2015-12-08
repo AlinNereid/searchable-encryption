@@ -45,4 +45,9 @@ public class HomeController {
     public String searchPage(){
         return "search";
     }
+
+    @RequestMapping(value = {"/test"})
+    public String testPage(){
+        return "test";
+    }
 }

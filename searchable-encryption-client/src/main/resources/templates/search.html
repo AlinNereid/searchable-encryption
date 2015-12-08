@@ -3,15 +3,39 @@
 <div class="container" th:fragment="content">
     <div class="row">
         <div class="col-lg-6">
+            <form id="docForm" action="#" th:action="@{/doc/search}" th:object="${documentdto}" method="post">
             <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for..."/>
+                  <input th:field="*{text}" type="text" class="form-control" placeholder="Search for..."/>
+                  <input th:field="*{encryptionType}" type="text" placeholder="Encryption type.."/>
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
+                    <input style="padding:5px;" class="btn btn-primary btn-lg" type="submit" value="Search"/>
                   </span>
             </div>
+            </form>
         </div>
     </div>
-    <div>No results found</div>
+    <div style="padding:5px;">
+        <ul class="list-group" th:unless="${result==null}">
+            <li th:each="item : ${result}" th:text="${item}" class="list-group-item" ></li>
+        </ul>
+    </div>
 </div>
 
 </html>
+
+<!--
+ <ul class="list-group">
+                            <li style="" class="list-group-item"> Coordinating teacher: Ferucio Laurentiu Țiplea</li>
+                            <li class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Butnaru Alin-Silviu</li>
+                            <li class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Buzneanu Alexandru-Gabriel</li>
+                            <li class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Plecan Daniel</li>
+                            <li class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Popoiu George</li>
+                            <li class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Tudose Tudor</li>
+                        </ul>
+-->
+
+<!--
+  <option th:each="i : ${#numbers.sequence( 1, 81/20)}">
+       <p th:text="${ i }"></p>  THIS loops 4 times, instead of 5
+    </option>
+-->
