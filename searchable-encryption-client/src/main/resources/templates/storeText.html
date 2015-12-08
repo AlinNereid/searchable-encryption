@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+
+    <div class="container" th:fragment="content">
+        <div class="input-group" style="min-width: 95%;">
+            <span class="glyphicon glyphicon-console"  aria-hidden="true"></span>
+            <textarea type="text" class="form-control custom-control" placeholder="Text to be saved.." rows="4" style="resize: vertical;max-height:500px;width:95%" aria-describedby="basic-addon1"></textarea>
+        </div>
+        <p>
+            <a id="saveText" onClick="alert('Store');" class="btn btn-primary btn-lg" type="button">Store</a>
+        </p>
+    </div>
+
+</html>
