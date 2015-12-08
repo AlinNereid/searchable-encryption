@@ -1,4 +1,4 @@
-package alin.sske.sSKEEcore.util;
+package com.searchable_encryption.sSKEEcore.util;
 
 
 import java.math.BigInteger;

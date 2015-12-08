@@ -1,27 +1,25 @@
-package com.searchable_encryption.dao;
+package com.searchable_encryption.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.joda.time.DateTime;
-import org.springframework.data.cassandra.mapping.PrimaryKey;
-import org.springframework.data.cassandra.mapping.Table;
 
 import java.util.UUID;
 
 /**
  * Created by Alexandru on 11/2/2015.
  */
-@Table("documents")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Document {
+public class SavedDocument {
 
-    @PrimaryKey
     private Long documentId;
 
     private UUID userId;
     private String data;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    @JsonIgnore
     private DateTime createdDate;
 
     private EncryptionType encryptionType;
@@ -55,7 +53,7 @@ public class Document {
             return false;
         }
 
-        Document document = (Document) o;
+        SavedDocument document = (SavedDocument) o;
 
         if (!documentId.equals(document.documentId)) {
             return false;
@@ -116,8 +114,8 @@ public class Document {
             return this;
         }
 
-        public Document build() {
-            Document document = new Document();
+        public SavedDocument build() {
+            SavedDocument document = new SavedDocument();
             document.documentId = documentId;
             document.userId = userId;
             document.data = data;

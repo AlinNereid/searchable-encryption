@@ -1,6 +1,5 @@
-package com.searchable_encryption.dto;
+package com.searchable_encryption.model;
 
-import com.searchable_encryption.dao.EncryptionType;
 import java.util.List;
 
 public class DocumentResponse {

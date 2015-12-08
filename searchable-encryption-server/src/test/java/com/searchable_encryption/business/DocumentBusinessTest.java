@@ -17,6 +17,7 @@ import java.util.List;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class DocumentBusinessTest {
     private DocumentBusiness documentBusiness;
 
     @Test
+    @Ignore
     public void test() throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException,
             IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, Exception {
         SSKE sske = SSKEBuilder.buildSSKEComponent();
