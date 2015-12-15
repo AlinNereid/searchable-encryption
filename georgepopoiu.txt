@@ -32,3 +32,6 @@ Lab 6:
 
 Lab 7:
 	* Added IBE encryption using JPBC and BC.
+
+Lab 8:
+	* Monitor for proper IBE signature usage using PTLTL logic.

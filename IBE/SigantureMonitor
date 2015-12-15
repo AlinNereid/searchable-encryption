@@ -1,0 +1,44 @@
+package mop;
+
+import java.io.*;
+import java.util.*;
+
+// This property specifies that a program does
+// not call the hasnext method  before the next
+// method of an iterator. 
+// This property is borrowed from tracematches 
+// (see ECOOP'07 http://abc.comlab.ox.ac.uk/papers)
+
+SignatureMonitor(IBS i) {
+   event setup after(IBS i) : 
+      call(* setup(..)) && target(i) {
+      	System.out.println("setup() called");
+      } 
+
+   event extract after(IBS i) : 
+      call(* extract(..)) && target(i) {
+      	System.out.println("extract() called");
+      }
+
+  event sign before(IBS i):
+      call(* sign(..)) && target(i) {
+      	System.out.println("sign() called");
+      }
+
+  event verify before(IBS i):
+      call(* verify(..)) && target(i) {
+      	System.out.println("verify() called");
+      }
+
+   ptltl : (extract => <*> setup) && ( sign => <*> extract) && ( verify => <*> setup )
+	
+   @violation {
+      System.out.println("Violation!");
+   }
+}
+
+
+
+
+
+

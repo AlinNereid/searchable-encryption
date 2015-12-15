@@ -25,7 +25,11 @@ public class IBS {
 	 * @param identity
 	 * @return
 	 */
-	static public CipherParameters extract(AsymmetricCipherKeyPair keyPair, String identity) {
+	public CipherParameters extract(AsymmetricCipherKeyPair keyPair, String identity) {
+		if(keyPair == null) {
+			return null;
+		}
+		
 		PS06SecretKeyGenerator extract = new PS06SecretKeyGenerator();
 		extract.init(new PS06SecretKeyGenerationParameters(keyPair, identity));
 		
@@ -37,7 +41,7 @@ public class IBS {
 	 * @param parameters
 	 * @return
 	 */
-	static public AsymmetricCipherKeyPair setup(PS06Parameters parameters) {
+	public AsymmetricCipherKeyPair setup(PS06Parameters parameters) {
 		PS06SetupGenerator setup = new PS06SetupGenerator();
 		setup.init(new PS06SetupGenerationParameters(null, parameters));
 		
@@ -51,7 +55,7 @@ public class IBS {
 	 * @param configFile
 	 * @return
 	 */
-	static public PS06Parameters createParameters(int nU, int nM, String configFile) {
+	public PS06Parameters createParameters(int nU, int nM, String configFile) {
 		return new PS06ParametersGenerator().init(
 				PairingFactory.getPairingParameters(configFile), 
 				nU, nM).generateParameters();
@@ -63,7 +67,11 @@ public class IBS {
 	 * @param secretKey
 	 * @return
 	 */
-	static public byte[] sign(String message, CipherParameters secretKey) {
+	public byte[] sign(String message, CipherParameters secretKey) {
+		if(secretKey == null) {
+			return null;
+		}
+		
 		byte[] bytes = message.getBytes();
 		
 		PS06Signer signer = new PS06Signer(new SHA256Digest());
@@ -89,7 +97,11 @@ public class IBS {
 	 * @param signature
 	 * @return
 	 */
-	static public boolean verify(CipherParameters publicKey, String message, String identity, byte[] signature) {
+	public boolean verify(CipherParameters publicKey, String message, String identity, byte[] signature) {
+		if(publicKey == null) {
+			return false;
+		}
+		
 		byte[] bytes = message.getBytes();
 		
 		PS06Signer signer = new PS06Signer(new SHA256Digest());
