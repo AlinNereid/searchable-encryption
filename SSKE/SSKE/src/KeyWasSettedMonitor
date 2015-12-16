@@ -1,0 +1,381 @@
+import java.io.*;
+import java.util.*;
+
+import javamoprt.*;
+
+import java.lang.ref.*;
+
+import org.aspectj.lang.*;
+
+import alin.sske.sSKEEcore.SSKE;
+/*
+ * package mop;
+
+import java.io.*;
+import java.util.*;
+
+// This property specifies that a program 
+// always calls the hasnext method  before 
+// the next method of an iterator. 
+// It is monitored for the pattern fail 
+// condition.  This property is borrowed 
+// from tracematches (see ECOOP'07 
+// http://abc.comlab.ox.ac.uk/papers)
+
+KeySettedMONITOR(SSKE sske) {
+	event setKeys after(SSKE sske) : 
+              call(* setSskekeys(..)) 
+              && target(sske) {}
+	event encrypt before(SSKE sske) : 
+              call(* encryptWord(..)) 
+              && target(sske) {}
+
+	ere : (setKeys setKeys* encrypt*)*
+
+	@fail {
+	  System.err.println(
+             "! setKeys has not been called!");
+          __RESET;
+	}
+}
+
+
+ */
+class KeySettedMONITORMonitor_Set implements javamoprt.MOPSet {
+	protected KeySettedMONITORMonitor[] elementData;
+	public int size;
+
+	public KeySettedMONITORMonitor_Set(){
+		this.size = 0;
+		this.elementData = new KeySettedMONITORMonitor[4];
+	}
+
+	public final int size(){
+		while(size > 0 && elementData[size-1].MOP_terminated) {
+			elementData[--size] = null;
+		}
+		return size;
+	}
+
+	public final boolean add(MOPMonitor e){
+		ensureCapacity();
+		elementData[size++] = (KeySettedMONITORMonitor)e;
+		return true;
+	}
+
+	public final void endObject(int idnum){
+		for(int i = 0; i < size; i++){
+			MOPMonitor monitor = elementData[i];
+			if(!monitor.MOP_terminated){
+				monitor.endObject(idnum);
+			}
+		}
+	}
+
+	public final boolean alive(){
+		for(int i = 0; i < size; i++){
+			MOPMonitor monitor = elementData[i];
+			if(!monitor.MOP_terminated){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public final void endObjectAndClean(int idnum){
+		for(int i = size - 1; i > 0; i--){
+			MOPMonitor monitor = elementData[i];
+			if(monitor != null && !monitor.MOP_terminated){
+				monitor.endObject(idnum);
+			}
+			elementData[i] = null;
+		}
+		elementData = null;
+	}
+
+	public final void ensureCapacity() {
+		int oldCapacity = elementData.length;
+		if (size + 1 > oldCapacity) {
+			cleanup();
+		}
+		if (size + 1 > oldCapacity) {
+			Object oldData[] = elementData;
+			int newCapacity = (oldCapacity * 3) / 2 + 1;
+			if (newCapacity < size + 1){
+				newCapacity = size + 1;
+			}
+			elementData = Arrays.copyOf(elementData, newCapacity);
+		}
+	}
+
+	public final void cleanup() {
+		int num_terminated_monitors = 0 ;
+		for(int i = 0; i + num_terminated_monitors < size; i ++){
+			KeySettedMONITORMonitor monitor = (KeySettedMONITORMonitor)elementData[i + num_terminated_monitors];
+			if(monitor.MOP_terminated){
+				if(i + num_terminated_monitors + 1 < size){
+					do{
+						monitor = (KeySettedMONITORMonitor)elementData[i + (++num_terminated_monitors)];
+					} while(monitor.MOP_terminated && i + num_terminated_monitors + 1 < size);
+					if(monitor.MOP_terminated){
+						num_terminated_monitors++;
+						break;
+					}
+				} else {
+					num_terminated_monitors++;
+					break;
+				}
+			}
+			if(num_terminated_monitors != 0){
+				elementData[i] = monitor;
+			}
+		}
+		if(num_terminated_monitors != 0){
+			size -= num_terminated_monitors;
+			for(int i = size; i < size + num_terminated_monitors ; i++){
+				elementData[i] = null;
+			}
+		}
+	}
+
+	public final void event_setKeys(SSKE sske) {
+		int num_terminated_monitors = 0 ;
+		for(int i = 0; i + num_terminated_monitors < this.size; i ++){
+			KeySettedMONITORMonitor monitor = (KeySettedMONITORMonitor)this.elementData[i + num_terminated_monitors];
+			if(monitor.MOP_terminated){
+				if(i + num_terminated_monitors + 1 < this.size){
+					do{
+						monitor = (KeySettedMONITORMonitor)this.elementData[i + (++num_terminated_monitors)];
+					} while(monitor.MOP_terminated && i + num_terminated_monitors + 1 < this.size);
+					if(monitor.MOP_terminated){
+						num_terminated_monitors++;
+						break;
+					}
+				} else {
+					num_terminated_monitors++;
+					break;
+				}
+			}
+			if(num_terminated_monitors != 0){
+				this.elementData[i] = monitor;
+			}
+			monitor.Prop_1_event_setKeys(sske);
+			if(monitor.Prop_1_Category_fail) {
+				monitor.Prop_1_handler_fail(sske);
+			}
+		}
+		if(num_terminated_monitors != 0){
+			this.size -= num_terminated_monitors;
+			for(int i = this.size; i < this.size + num_terminated_monitors; i++){
+				this.elementData[i] = null;
+			}
+		}
+	}
+
+	public final void event_encrypt(SSKE sske) {
+		int num_terminated_monitors = 0 ;
+		for(int i = 0; i + num_terminated_monitors < this.size; i ++){
+			KeySettedMONITORMonitor monitor = (KeySettedMONITORMonitor)this.elementData[i + num_terminated_monitors];
+			if(monitor.MOP_terminated){
+				if(i + num_terminated_monitors + 1 < this.size){
+					do{
+						monitor = (KeySettedMONITORMonitor)this.elementData[i + (++num_terminated_monitors)];
+					} while(monitor.MOP_terminated && i + num_terminated_monitors + 1 < this.size);
+					if(monitor.MOP_terminated){
+						num_terminated_monitors++;
+						break;
+					}
+				} else {
+					num_terminated_monitors++;
+					break;
+				}
+			}
+			if(num_terminated_monitors != 0){
+				this.elementData[i] = monitor;
+			}
+			monitor.Prop_1_event_encrypt(sske);
+			if(monitor.Prop_1_Category_fail) {
+				monitor.Prop_1_handler_fail(sske);
+			}
+		}
+		if(num_terminated_monitors != 0){
+			this.size -= num_terminated_monitors;
+			for(int i = this.size; i < this.size + num_terminated_monitors; i++){
+				this.elementData[i] = null;
+			}
+		}
+	}
+}
+
+class KeySettedMONITORMonitor extends javamoprt.MOPMonitor implements Cloneable, javamoprt.MOPObject {
+	public Object clone() {
+		try {
+			KeySettedMONITORMonitor ret = (KeySettedMONITORMonitor) super.clone();
+			return ret;
+		}
+		catch (CloneNotSupportedException e) {
+			throw new InternalError(e.toString());
+		}
+	}
+
+	int Prop_1_state;
+	static final int Prop_1_transition_setKeys[] = {1, 1, 2};;
+	static final int Prop_1_transition_encrypt[] = {2, 1, 2};;
+
+	boolean Prop_1_Category_fail = false;
+
+	public KeySettedMONITORMonitor () {
+		Prop_1_state = 0;
+
+	}
+
+	public final void Prop_1_event_setKeys(SSKE sske) {
+		MOP_lastevent = 0;
+
+		Prop_1_state = Prop_1_transition_setKeys[Prop_1_state];
+		Prop_1_Category_fail = Prop_1_state == 2;
+	}
+
+	public final void Prop_1_event_encrypt(SSKE sske) {
+		MOP_lastevent = 1;
+
+		Prop_1_state = Prop_1_transition_encrypt[Prop_1_state];
+		Prop_1_Category_fail = Prop_1_state == 2;
+	}
+
+	public final void Prop_1_handler_fail (SSKE sske){
+		{
+			System.err.println("! setKeys has not been called!");
+			this.reset();
+		}
+
+	}
+
+	public final void reset() {
+		MOP_lastevent = -1;
+		Prop_1_state = 0;
+		Prop_1_Category_fail = false;
+	}
+
+	public javamoprt.MOPWeakReference MOPRef_sske;
+
+	//alive_parameters_0 = [SSKE sske]
+	public boolean alive_parameters_0 = true;
+
+	public final void endObject(int idnum){
+		switch(idnum){
+			case 0:
+			alive_parameters_0 = false;
+			break;
+		}
+		switch(MOP_lastevent) {
+			case -1:
+			return;
+			case 0:
+			//setKeys
+			//alive_sske
+			if(!(alive_parameters_0)){
+				MOP_terminated = true;
+				return;
+			}
+			break;
+
+			case 1:
+			//encrypt
+			//alive_sske
+			if(!(alive_parameters_0)){
+				MOP_terminated = true;
+				return;
+			}
+			break;
+
+		}
+		return;
+	}
+
+}
+
+public aspect KeyWasSettedMonitor implements javamoprt.MOPObject {
+	javamoprt.MOPMapManager HasNextMapManager;
+	public KeyWasSettedMonitor(){
+		HasNextMapManager = new javamoprt.MOPMapManager();
+		HasNextMapManager.start();
+	}
+
+	// Declarations for Locks
+	static Object KeySettedMONITOR_MOPLock = new Object();
+
+	// Declarations for Indexing Trees
+	static javamoprt.MOPMap KeySettedMONITOR_sske_Map = new javamoprt.MOPMapOfMonitor(0);
+	static Object KeySettedMONITOR_sske_Map_cachekey_0 = null;
+	static Object KeySettedMONITOR_sske_Map_cachevalue = null;
+
+	pointcut KeySettedMONITOR_setKeys(SSKE sske) : (call(* setSskekeys(..)) && target(sske)) && !within(javamoprt.MOPObject+) && !adviceexecution();
+	after (SSKE sske) : KeySettedMONITOR_setKeys(sske) {
+		Object obj = null;
+		javamoprt.MOPMap m;
+		KeySettedMONITORMonitor monitor = null;
+		KeySettedMONITORMonitor_Set monitors = null;
+		javamoprt.MOPWeakReference TempRef_sske;
+
+		synchronized(KeySettedMONITOR_MOPLock) {
+			if(sske == KeySettedMONITOR_sske_Map_cachekey_0){
+				obj = KeySettedMONITOR_sske_Map_cachevalue;
+			}
+
+			if(obj == null) {
+				obj = KeySettedMONITOR_sske_Map.get(sske);
+
+				monitor = (KeySettedMONITORMonitor) obj;
+				if (monitor == null){
+					monitor = new KeySettedMONITORMonitor();
+					monitor.MOPRef_sske = new javamoprt.MOPWeakReference(sske);
+					KeySettedMONITOR_sske_Map.put(monitor.MOPRef_sske, monitor);
+				}
+				KeySettedMONITOR_sske_Map_cachekey_0 = sske;
+				KeySettedMONITOR_sske_Map_cachevalue = monitor;
+			} else {
+				monitor = (KeySettedMONITORMonitor) obj;
+			}
+			monitor.Prop_1_event_setKeys(sske);
+			if(monitor.Prop_1_Category_fail) {
+				monitor.Prop_1_handler_fail(sske);
+			}
+		}
+	}
+
+	pointcut KeySettedMONITOR_encrypt(SSKE sske) : (call(* encryptWord(..)) && target(sske)) && !within(javamoprt.MOPObject+) && !adviceexecution();
+	before (SSKE sske) : KeySettedMONITOR_encrypt(sske) {
+		Object obj = null;
+		javamoprt.MOPMap m;
+		KeySettedMONITORMonitor monitor = null;
+		KeySettedMONITORMonitor_Set monitors = null;
+		javamoprt.MOPWeakReference TempRef_sske;
+
+		synchronized(KeySettedMONITOR_MOPLock) {
+			if(sske == KeySettedMONITOR_sske_Map_cachekey_0){
+				obj = KeySettedMONITOR_sske_Map_cachevalue;
+			}
+
+			if(obj == null) {
+				obj = KeySettedMONITOR_sske_Map.get(sske);
+
+				monitor = (KeySettedMONITORMonitor) obj;
+				if (monitor == null){
+					monitor = new KeySettedMONITORMonitor();
+					monitor.MOPRef_sske = new javamoprt.MOPWeakReference(sske);
+					KeySettedMONITOR_sske_Map.put(monitor.MOPRef_sske, monitor);
+				}
+				KeySettedMONITOR_sske_Map_cachekey_0 = sske;
+				KeySettedMONITOR_sske_Map_cachevalue = monitor;
+			} else {
+				monitor = (KeySettedMONITORMonitor) obj;
+			}
+			monitor.Prop_1_event_encrypt(sske);
+			if(monitor.Prop_1_Category_fail) {
+				monitor.Prop_1_handler_fail(sske);
+			}
+		}
+	}
+
+} 
