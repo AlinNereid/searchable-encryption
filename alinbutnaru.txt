@@ -17,3 +17,7 @@ Lab6-Lab7:
 	Implement SSKE (encrypt, decrypt and search)
 	Wrote aspects for: caching the encryption, write in the console which word is encrypted/decrypted and the keys used.
 	Also wrote an aspect which calculates the time needed to do a search.
+Lab8:
+	Integrate with server SSKE
+Lab9:
+	Create KeySettedMonitor using JavaMop using ere.
