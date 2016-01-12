@@ -91,98 +91,79 @@ public class SSKEImpl extends MinimalEObjectImpl.Container implements SSKE {
 		return SSKEEcorePackage.Literals.SSKE;
 	}
 
-	@Override
-	public String encryptWord(String word, int position) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
-		String EW = sskeencryptor.getSymmetricencryptor().encrypt(word, sskekeys.getKeyA());
-		int length = EW.length();
-		String l = EW.substring(0,length/2);
-		String r = EW.substring(length/2);
 
-		String si = sskeencryptor.getPseudorandomgenerator().generateKey(position,sskekeys.getKeyB());
-		String ki = sskeencryptor.getPseudorandomfunction().generateRandomPiece(sskekeys.getKeyC(),l);
-		byte b[] = new byte[sskekeys.getKeyA().length()];
-		for(int i=0; i<b.length;i++){
-			b[i] = ki.getBytes()[i];
+	protected byte[] getFirstKBytes(String s, int length){
+		byte result[] = new byte[length];
+		for(int i=0; i<length; i++) {
+			result[i] = s.getBytes()[i];
 		}
-		ki = new String(b,"ISO-8859-1");
-		
-		
-		byte b2[] = new byte[l.getBytes().length];
-		for(int i=0;i<l.getBytes().length;i++){
-			b2[i] = si.getBytes()[i];
-		}
-		//aici
-		String siString = new String(b2,"ISO-8859-1");
-		String s2 = sskeencryptor.getSymmetricencryptor().encrypt(siString,ki);
-		
-		byte b3[] = new byte[r.getBytes().length];
-		for(int i=0;i<r.getBytes().length;i++){
-			b3[i] = s2.getBytes()[i];
-		}
-		
-		String Ti = new String(b2) + new String(b3);
-
-        byte rez[] = new byte[Ti.getBytes().length];
-
-        for(int i=0;i<Ti.getBytes().length;i++)
-        {
-            rez[i] = (byte) (EW.getBytes()[i]^Ti.getBytes()[i]);
-        }
-
-        byte EWb[] = new byte[Ti.getBytes().length];
-        for(int i=0;i<Ti.getBytes().length;i++)
-        {
-            EWb[i] = (byte) (rez[i]^Ti.getBytes()[i]);
-        }
-        String enwod=  new String(rez, "ISO-8859-1");
-        return enwod;
+		return result;
 	}
 
-    @Override
+	protected byte[] getFirstKBytes(byte[] bytes, int length){
+		byte result[] = new byte[length];
+		for(int i=0; i<length; i++) {
+			result[i] = bytes[i];
+		}
+		return result;
+	}
+
+	protected byte[] getLastKBytes(byte[] bytes, int length){
+		byte result[] = new byte[length];
+		for(int i=0; i<length; i++) {
+			result[i] = bytes[i + length];
+		}
+		return result;
+	}
+
+	protected byte[] xorBytes(byte[] a, byte[] b, int length){
+		byte result[] = new byte[length];
+		for(int i=0; i<length; i++){
+			result[i] = (byte) (a[i]^b[i]);
+		}
+		return result;
+	}
+
+	private String createKi(String leftSide) throws UnsupportedEncodingException {
+		String ki = sskeencryptor.getPseudorandomfunction().generateRandomPiece(sskekeys.getKeyC(),leftSide);
+		byte kiBytes[] = new byte[sskekeys.getKeyA().length()];
+		for(int i=0; i<kiBytes.length;i++){
+			kiBytes[i] = ki.getBytes()[i];
+		}
+		ki = new String(kiBytes,"ISO-8859-1");
+		return ki;
+	}
+
+	@Override
+	public String encryptWord(String word, int position) throws NoSuchPaddingException, InvalidKeyException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException {
+		String encryptedWord = sskeencryptor.getSymmetricencryptor().encrypt(word, sskekeys.getKeyA());
+		int length = encryptedWord.length();
+		String leftSide = encryptedWord.substring(0,length/2);
+		String rightSide = encryptedWord.substring(length/2);
+		String Si = sskeencryptor.getPseudorandomgenerator().generateKey(position,sskekeys.getKeyB());
+		String ki = createKi(leftSide);
+		byte siBytes[] = getFirstKBytes(Si ,leftSide.length());
+		String siString = new String(siBytes,"ISO-8859-1");
+		String encryptSiWithKi = sskeencryptor.getSymmetricencryptor().encrypt(siString,ki);
+		byte encryptSiWithKiBytes[] = getFirstKBytes(encryptSiWithKi, rightSide.length());
+		String Ti = new String(siBytes) + new String(encryptSiWithKiBytes);
+        byte xorEncryptedWordWithTi[] = xorBytes(encryptedWord.getBytes(), Ti.getBytes(), Ti.getBytes().length);
+        return  new String(xorEncryptedWordWithTi, "ISO-8859-1");
+	}
+
+	@Override
     public String decryptWord(String encryptedWord, int position) throws Exception {
         String si = sskedecryptor.getPseudorandomgenerator().generateKey(position,sskekeys.getKeyB());
-        
-        byte [] encryptedWordBytes = encryptedWord.getBytes("ISO-8859-1");
-        byte left[] = new byte[encryptedWordBytes.length/2];
-        for(int i=0;i<left.length;i++){
-            left[i] = encryptedWordBytes[i];
-        }
-        byte b2[] = new byte[left.length];
-		for(int i=0;i<left.length;i++){
-			b2[i] = si.getBytes()[i];
-		}
-		
-        byte right[] = new byte[encryptedWordBytes.length/2];
-        for(int i=0;i<right.length;i++){
-            right[i] = encryptedWordBytes[i+encryptedWordBytes.length/2];
-        }
-
-        byte [] li = new byte[left.length];
-
-        for(int i=0;i<left.length;i++){
-            li[i] = (byte) (si.getBytes()[i] ^ left[i]);
-        }
-
-        String l = new String(li);
-
-        String ki = sskeencryptor.getPseudorandomfunction().generateRandomPiece(sskekeys.getKeyC(),l);
-
-        byte b[] = new byte[sskekeys.getKeyA().length()];
-        for(int i=0; i<b.length;i++){
-            b[i] = ki.getBytes()[i];
-        }
-        ki = new String(b,"ISO-8859-1");
-        String siString = new String(b2,"ISO-8859-1");
-        String s2 = sskeencryptor.getSymmetricencryptor().encrypt(siString, ki);
-
-        byte [] ri = new byte[left.length];
-        for(int i=0;i<right.length;i++){
-            ri[i] = (byte) (s2.getBytes()[i] ^ right[i]);
-        }
-
-        String  r = new String(ri);
-
-        return sskedecryptor.getSymmetricdecryptor().decrypt(l+r,getSskekeys().getKeyA());
+        byte encryptedWordBytes[] = encryptedWord.getBytes("ISO-8859-1");
+		byte leftSide[] = getFirstKBytes(encryptedWordBytes, encryptedWordBytes.length/2);
+		byte siBytes[] = getFirstKBytes(si, leftSide.length);
+		byte rightSide[] = getLastKBytes(encryptedWordBytes, encryptedWordBytes.length/2);
+		byte computedLeftSide[] = xorBytes(si.getBytes(), leftSide, leftSide.length);
+        String ki = sskeencryptor.getPseudorandomfunction().generateRandomPiece(sskekeys.getKeyC(), new String(computedLeftSide));
+		byte kiBytes[] = getFirstKBytes(ki.getBytes(), sskekeys.getKeyA().length());
+        String encryptSiWithKi = sskeencryptor.getSymmetricencryptor().encrypt(new String(siBytes,"ISO-8859-1"),  new String(kiBytes,"ISO-8859-1"));
+		byte computedRightSide[] = xorBytes(encryptSiWithKi.getBytes(), rightSide, rightSide.length);
+        return sskedecryptor.getSymmetricdecryptor().decrypt(new String(computedLeftSide) + new String(computedRightSide),getSskekeys().getKeyA());
     }
 
     /**

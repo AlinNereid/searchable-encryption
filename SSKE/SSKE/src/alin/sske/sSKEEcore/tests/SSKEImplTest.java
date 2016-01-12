@@ -52,6 +52,38 @@ public class SSKEImplTest {
 
         assertEquals(word, "wordword");
     }
+
+     @Test
+    public void testEncryptDecrypyWord3() throws Exception {
+        SSKEKeys sskeKeys = factory.createSSKEKeys();
+        sskeKeys.setKeyA("keyakeyakeyakeyd");
+        sskeKeys.setKeyB("keybkeybkeybkeyb");
+        sskeKeys.setKeyC("keyckeyckeyckeyc");
+        sske.setSskekeys(sskeKeys);
+
+
+        String encryptWord = sske.encryptWord("word2word",0);
+        String word = sske.decryptWord(encryptWord,0);
+
+        assertEquals(word, "word2word");
+    }
+
+    @Test
+    public void testEncrypt() throws Exception {
+        SSKEKeys sskeKeys = factory.createSSKEKeys();
+        sskeKeys.setKeyA("keyakeyakeyakeyd");
+        sskeKeys.setKeyB("keybkeybkeybkeyb");
+        sskeKeys.setKeyC("keyckeyckeyckeyc");
+        sske.setSskekeys(sskeKeys);
+
+
+        String encryptWord = sske.encryptWord("word2word",0);
+        assertEquals(encryptWord, "\u008AØ\u0092 Ó\u008B\u001Ezo·\u008Aî\u001C3\u0015a<t;Zg\u0012\\R");
+        String word = sske.decryptWord(encryptWord,0);
+
+        assertEquals(word, "word2word");
+    }
+
     @Test
     public void testEncryptDecrypyWord2() throws Exception {
         SSKEKeys sskeKeys = factory.createSSKEKeys();
